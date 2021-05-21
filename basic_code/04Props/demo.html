@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+
+  </div>
+  <div id="app1">
+
+  </div>
+  <div id="app2">
+
+  </div>
+  <div id="app3">
+
+  </div>
+  <script src="../js/react.development.js"></script>
+  <script src="../js/react-dom.development.js"></script>
+  <script src="../js/babel.min.js"></script>
+  <script type="text/babel">
+    class List extends React.Component {
+      render() {
+        const {name, age, sex} = this.props;
+        return (
+          <ul>
+            <li>姓名：{name}</li>
+            <li>性别：{sex}</li>
+            <li>年龄：{age}</li>
+          </ul>
+        )
+      }
+      
+    }
+
+    ReactDOM.render(<List name="小红" sex="女" age="15" />, document.getElementById('app'));
+    ReactDOM.render(<List name="小红1" sex="女1" age="15" />, document.getElementById('app1'));
+    ReactDOM.render(<List name="小红2" sex="女2" age="15" />, document.getElementById('app2'));
+    ReactDOM.render(<List name="小红3" sex="女3" age="15" />, document.getElementById('app3'));
+
+  </script>
+</body>
+
+</html>
