@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+
+  </div>
+  <script src="../js/react.development.js"></script>
+  <script src="../js/react-dom.development.js"></script>
+  <script src="../js/babel.min.js"></script>
+  <script type="text/babel">
+    // 定义父组件
+    class Father extends React.Component {
+      // 定义父组件状态
+      state = { carName: '宝马' };
+      // 定义换车方法
+      changeCar = () => {
+        // 换车
+        this.setState({ carName: '奔驰' });
+      }
+      render() {
+        // 获取状态数据
+        const { carName } = this.state;
+        return (
+          <div>
+            <h1>父亲</h1>
+            <button onClick={this.changeCar}>给儿子换车</button>
+            <Son carName={carName} />
+          </div>
+        )
+      }
+    }
+    // 定义子组件
+    class Son extends React.Component {
+      // 父组件render渲染后执行子组件该钩子
+      componentWillReceiveProps(props) {
+        console.log('Son---componentWillReceiveProps', props);
+      }
+      // 控制修改状态的阀门
+      shouldComponentUpdate(){
+        console.log('Son---shouldComponentUpdate');
+        return true;
+      }
+      // 组件状态将要被修改钩子
+      componentWillUpdate(){
+        console.log('Son---componentWillUpdate');
+      }
+      // 组件状态修改完成后钩子
+      componentDidUpdate(){
+        console.log('Son---componentDidUpdate');
+      }
+      render() {
+        console.log('Son---render');
+        return (
+          <div>
+            <h2>儿子</h2>
+            <p>我收到的车品牌为: {this.props.carName}</p>
+          </div>
+        )
+      }
+    }
+    // 渲染父组件
+    ReactDOM.render(<Father />, document.getElementById('app'));
+  </script>
+</body>
+
+</html>

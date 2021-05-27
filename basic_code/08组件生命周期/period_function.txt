@@ -1,0 +1,43 @@
+组件被渲染就使用就调用该钩子
+constructor
+
+组件将要挂载之前
+componentWillMount
+
+组件挂载之后
+componentDidMount  注意Mount M大写  
+常用： 开启定时器  发送网络请求 订阅消息 等等
+
+组件被渲染调用该钩子
+render
+
+组件将要卸载之前
+componentWillUnmount 注意mount m小写
+常用 ： 关闭定时器 取消订阅消息
+
+若书写这个钩子 ，必须有返回值  且未一个Boolean值 
+返回为false 这修改组件state数据不成功  setState  修改状态的阀门
+shouldComponentUpdate
+
+组件数据状态将要被更改钩子
+componentWillUpdate
+
+组件状态更改完成钩子
+componentDidUpdate
+
+父组件render渲染后执行子组件该钩子
+componentWillReceiveProps
+
+ReactDOM.unmountComponentAtNode()
+卸载某个节点内的组件
+
+更改状态，然后更新一下组件
+setState()  需要经过阀门
+
+不更改状态，更新一下组件
+forceUpdate() 绕过阀门
+
+不要在render里面修改组件的自身状态  state数据 一旦修改state render会被再次调用  1+n执行次数
+这将是一个无限递归  CPU飘升
+
+修改组件state数据 需要使用setState

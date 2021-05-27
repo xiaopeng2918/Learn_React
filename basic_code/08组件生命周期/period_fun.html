@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+
+  </div>
+  <script src="../js/react.development.js"></script>
+  <script src="../js/react-dom.development.js"></script>
+  <script src="../js/babel.min.js"></script>
+  <script type="text/babel">
+    // 创建组件
+    class Count extends React.Component {
+      // 构造器
+      constructor(props) {
+        console.log('Count---constructor');
+        super(props);
+        // 定义组件状态
+        this.state = { count: 0 };
+      }
+      // 组件将要加载钩子
+      componentWillMount() {
+        console.log('Count---componentWillMount');
+      }
+      // 组件加载完毕钩子
+      componentDidMount() {
+        console.log('Count---componentDidMount');
+      }
+      // 组件将要被卸载钩子
+      componentWillUnmount() {
+        console.log('Count---componentWillUnmount');
+      }
+      // 修改组件状态的“阀门”  默认返回true  
+      /* 
+      若书写这个钩子 ，必须有返回值  且未一个Boolean值 
+      返回为false 这修改组件state数据不成功
+      */
+      shouldComponentUpdate() {
+        console.log('Count---shouldComponentUpdate');
+        return true;
+      }
+      // 组件数据状态将要被更改钩子
+      componentWillUpdate() {
+        console.log('Count---componentWillUpdate');
+      }
+      // 组件状态更改完成钩子
+      componentDidUpdate() {
+        console.log('Count---componentDidUpdate');
+      }
+      // 加法函数
+      sum = () => {
+        // 拿取状态
+        const { count } = this.state;
+        // 修改状态
+        this.setState({ count: count + 1 });
+      }
+      // 不更改状态，更新一下组件
+      force = () => {
+        // forceUpdate  绕过修改状态阀门
+        this.forceUpdate()
+      }
+      // 卸载组件函数
+      death = () => {
+        // 卸载组件
+        ReactDOM.unmountComponentAtNode(document.getElementById('app'));
+      }
+      // 虚拟DOM元素
+      render() {
+        console.log('Count---render');
+        const { count } = this.state;
+        return (
+          <div>
+            <h1>求和为: {count}</h1>
+            <button onClick={this.sum}>点我+1</button>
+            <button onClick={this.death}>卸载组件</button>
+            <button onClick={this.force}>不更该组件状态，更新一下组件</button>
+          </div>
+        )
+      }
+    }
+    // 渲染DOM元素
+    ReactDOM.render(<Count />, document.getElementById('app'));
+  </script>
+</body>
+
+</html>

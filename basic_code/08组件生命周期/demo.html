@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+
+  </div>
+  <script src="../js/react.development.js"></script>
+  <script src="../js/react-dom.development.js"></script>
+  <script src="../js/babel.min.js"></script>
+  <script type="text/babel">
+    // 创建组件
+    class Life extends React.Component {
+      // 定义opacity状态属性，这个属性内联到组件样式中
+      state = {opacity: 1};
+      death = () => {
+        // 删除组件
+        ReactDOM.unmountComponentAtNode(document.getElementById('app'));
+      }
+      // 定时器应该定义在组件挂载之后
+      componentDidMount(){
+        let {opacity} = this.state;
+        this.timer = setInterval(() => {
+          // 透明度没0.2秒修改0.1
+          opacity -= 0.1;
+          // 添加一个判断，这里尽量使用 <= 0 因为计算机小数运算可能每次到0时不一定刚好等于0 控制台打印看看
+          if(opacity <= 0){
+            opacity = 1;
+          }
+          // 修改透明度
+          this.setState({opacity});
+          // console.log(opacity);
+        }, 200);
+      }
+      // 定时器应该在组件挂载之后, 定时器关闭
+      /* 
+      如果定时器不关闭，那么组件销毁之后。定时器还在运行，系统会报错
+      */
+     componentWillUnmount(){
+       clearInterval(this.timer);
+     }
+      render() {
+        let {opacity} = this.state;
+        return (
+          <div>
+            <h1 style={{ opacity }}>React学不会，怎么办？</h1>
+            <button onClick={this.death}>不活了</button>
+          </div>
+        )
+      }
+    }
+    // 渲染组件
+    ReactDOM.render(<Life />, document.getElementById('app'));
+
+  </script>
+</body>
+
+</html>
