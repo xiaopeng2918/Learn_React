@@ -1,24 +1,30 @@
 import React, { Component } from 'react'
 // 导入axios
 import axios from 'axios'
+// 引入消息订阅 发送js库
+import PubSub from 'pubsub-js'
 
 export default class Header extends Component {
   // 获取用户数据
   handleGetUsers = () => {
     // 获取更新状态函数
-    const { updateAppState } = this.props;
+    /* const { updateAppState } = this.props; */
     // 点击之前，设置isFirst为false loading为true
-    updateAppState({ isFirst: false, loading: true });
+    /* updateAppState({ isFirst: false, loading: true }); */
+    // 发送订阅消息
+    PubSub.publish('getDataFromHeader', { isFirst: false, loading: true });
     const { value } = this.keyCodeNode;
     // 发送请求
     axios.get(`/api/search/users?q=${value}`).then(
       (res) => {
         // 请求成功 更新users 设置loading为false
-        updateAppState({ users: res.data.items, loading: false });
+        /* updateAppState({ users: res.data.items, loading: false }); */
+        PubSub.publish('getDataFromHeader', { users: res.data.items, loading: false });
       },
       (err) => {
         // 请求失败，设置loaing 为false 将err赋值错误信息
-        updateAppState({loading: false, err: err.message})
+        /* updateAppState({loading: false, err: err.message}) */
+        PubSub.publish('getDataFromHeader', {loading: false, err: err.message});
       }
     )
   }

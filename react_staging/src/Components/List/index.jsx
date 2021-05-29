@@ -1,10 +1,24 @@
 import React, { Component } from 'react'
 // 引入css文件
 import './index.css';
+// 引入消息订阅 发送js库
+import PubSub from 'pubsub-js'
 
 export default class List extends Component {
+  state = {
+    users: [],
+    isFirst: true,
+    loading: false,
+    err: '',
+  };
+  // 组件挂载是订阅消息
+  componentDidMount(){
+    PubSub.subscribe('getDataFromHeader', (_, data) => {
+      this.setState(data);
+    })
+  }
   render() {
-    const {isFirst, loading, err, users} = this.props;
+    const {isFirst, loading, err, users} = this.state;
     return (
       <div className="row">
         {
