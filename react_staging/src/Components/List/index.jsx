@@ -3,8 +3,15 @@ import React, { Component } from 'react'
 import Item from '../Item'
 // 引入css文件
 import './index.css'
+// 引入第三方模块
+import PropTypes from 'prop-types'
 
 export default class List extends Component {
+  // props类型声明 必要性
+  static propTypes = {
+    todos: PropTypes.array.isRequired,
+    updatetodoChecked: PropTypes.func.isRequired,
+  }
   render() {
     // 拿出父组件传来的值
     const {todos, updatetodoChecked} = this.props;

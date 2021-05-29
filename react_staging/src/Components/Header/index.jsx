@@ -1,8 +1,15 @@
 import React, { Component } from 'react'
 // 引入css文件
 import './index.css'
+// 引入第三方模块
+import PropTypes from 'prop-types'
+
 
 export default class Header extends Component {
+  // props类型声明，必要性模块
+  static propTypes = {
+    addtodo: PropTypes.func.isRequired,
+  }
   handleKeyUp = (event) => {
     // 获取父组件传来的addtodo
     const { addtodo } = this.props;
