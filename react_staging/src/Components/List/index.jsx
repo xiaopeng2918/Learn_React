@@ -4,10 +4,13 @@ import './index.css';
 
 export default class List extends Component {
   render() {
-    const { users } = this.props;
+    const {isFirst, loading, err, users} = this.props;
     return (
       <div className="row">
         {
+          isFirst ? <h1>welcome</h1> :
+          loading ? <h1>loading......</h1> :
+          err ? <h1 style={{color: 'red'}}>{err}</h1> :
           users.map((user) => {
             return (
               <div className="card" key={user.id}>

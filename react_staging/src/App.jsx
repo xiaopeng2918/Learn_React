@@ -5,18 +5,23 @@ import Header from './Components/Header'
 import List from './Components/List'
 
 export default class App extends Component {
-  state = {users: []};
-  // 保存users
-  getDataUsers = (userArr) => {
+  state = {
+    users: [],
+    isFirst: true,
+    loading: false,
+    err: '',
+  };
+  // 改变状态对象
+  updateAppState = (stateObj) => {
     // 保存
-    this.setState({users: userArr})
+    this.setState(stateObj);
   }
   render() {
-    const {users} = this.state;
     return (
       <div className="container">
-        <Header getDataUsers={this.getDataUsers} />
-        <List users={users} />
+        <Header updateAppState={this.updateAppState} />
+        {/* 传递所有state数据 */}
+        <List {...this.state} />
       </div>
     )
   }
