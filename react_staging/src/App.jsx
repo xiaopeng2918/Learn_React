@@ -5,11 +5,18 @@ import Header from './Components/Header'
 import List from './Components/List'
 
 export default class App extends Component {
+  state = {users: []};
+  // 保存users
+  getDataUsers = (userArr) => {
+    // 保存
+    this.setState({users: userArr})
+  }
   render() {
+    const {users} = this.state;
     return (
       <div className="container">
-        <Header />
-        <List />
+        <Header getDataUsers={this.getDataUsers} />
+        <List users={users} />
       </div>
     )
   }

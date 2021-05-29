@@ -8,7 +8,9 @@ export default class Header extends Component {
     const {value} = this.keyCodeNode;
     // 发送请求
     axios.get(`/api/search/users?q=${value}`).then(
-      (res) => {console.log(res)},
+      (res) => {
+        this.props.getDataUsers(res.data.items);
+      },
       (err) => {console.log('失败了', err)}
     )
   }
