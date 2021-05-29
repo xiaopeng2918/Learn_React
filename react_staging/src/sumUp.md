@@ -20,3 +20,6 @@
          handleChange需要返回一个函数，这个函数就是当onChange改变的时候回调的函数
          handleChange返回的函数的参数为一个事件触发对象，及checkBox框，这样，该函数就能拿到id 和 checked值
          在该函数内部执行updateTodo实现修改表单状态
+三 window.confirm使用  -> 跳出一个带有确定和取消的弹窗
+    1.confirm()  参数接收提示信息。  点击确定 confirm()返回true  点击取消 confirm()返回false
+四 defaultChecked只在第一次渲染数据有作用 如果动态绑定了checked值，那么必须设置onChange事件

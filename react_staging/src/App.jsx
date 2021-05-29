@@ -27,18 +27,48 @@ export default class App extends Component {
   // 修改todo完成状态，对应数据 done  根据id修改
   updatetodoChecked = (id, isTrue) => {
     // 获取todos
-    const {todos} = this.state;
+    const { todos } = this.state;
     // 遍历修改todos
     const newtodos = todos.map((todo) => {
       // 找到指定id todo
-      if(id === todo.id){
-        return {...todo, done: isTrue};
-      }else {
+      if (id === todo.id) {
+        return { ...todo, done: isTrue };
+      } else {
         return todo;
       }
     })
     // 设置状态
-    this.setState({todos: newtodos});
+    this.setState({ todos: newtodos });
+  }
+  // 删除todo 
+  deletetodo = (id) => {
+    const { todos } = this.state;
+    // 过滤掉指定id的todo
+    const newTodos = todos.filter((todo) => {
+      return todo.id !== id;
+    })
+    // 设置todos
+    this.setState({ todos: newTodos });
+  }
+  // 处理全布todo的状态
+  totalChecked = (trueOrFalse) => {
+    const { todos } = this.state;
+    // 处理todos中所有的状态
+    const newTodos = todos.map((todo) => {
+      return { ...todo, done: trueOrFalse };
+    })
+    // 设置状态
+    this.setState({ todos: newTodos });
+  }
+  // 清楚所有已完成
+  clearTrueTotal = () => {
+    const {todos} = this.state;
+    // 过滤出未完成的todo
+    const newTodos = todos.filter((todo) => {
+      return todo.done === false;
+    })
+    // 设置状态
+    this.setState({todos: newTodos});
   }
   render() {
     // 获取状态数据传给子组件List
@@ -47,8 +77,10 @@ export default class App extends Component {
       <div className="todo-container">
         <div className="todo-wrap">
           <Header addtodo={this.addtodo} />
-          <List todos={todos} updatetodoChecked={this.updatetodoChecked} />
-          <Footer />
+          <List todos={todos} 
+          updatetodoChecked={this.updatetodoChecked} 
+          deletetodo={this.deletetodo} />
+          <Footer totalChecked={this.totalChecked} clearTrueTotal={this.clearTrueTotal} todos={todos} />
         </div>
       </div>
     )

@@ -11,17 +11,18 @@ export default class List extends Component {
   static propTypes = {
     todos: PropTypes.array.isRequired,
     updatetodoChecked: PropTypes.func.isRequired,
+    deletetodo: PropTypes.func.isRequired,
   }
   render() {
     // 拿出父组件传来的值
-    const {todos, updatetodoChecked} = this.props;
+    const {todos, updatetodoChecked, deletetodo} = this.props;
     return (
       <ul className="todo-main">
         {/* 遍历循环todos渲染对应的列表数据 */}
         {
           todos.map((todo) => {
             /* 这里的{...todo}  不是结构赋值 这是React和Babel结合将todo对象里面的键值对传给子组件*/
-            return <Item {...todo} key={todo.id} updatetodoChecked={updatetodoChecked} />
+            return <Item {...todo} key={todo.id} updatetodoChecked={updatetodoChecked} deletetodo={deletetodo} />
           })
         }
       </ul>
