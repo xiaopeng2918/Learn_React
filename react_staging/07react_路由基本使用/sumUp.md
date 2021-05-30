@@ -1,0 +1,3 @@
+- 路由外壳分为BrowserRouter与HashRouter 
+- 外壳需要包裹到Link与Route标签
+- 所以一般把外壳放到根组件App的外部

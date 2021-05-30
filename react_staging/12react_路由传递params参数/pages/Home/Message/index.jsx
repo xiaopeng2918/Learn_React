@@ -1,0 +1,34 @@
+import React, { Component } from 'react'
+// 引入Link组件
+import { Link, Route } from 'react-router-dom'
+// 引入Detail组件
+import Detail from './Detail'
+
+export default class Message extends Component {
+  state = {
+    messages: [
+      { id: '01', title: '信息1' },
+      { id: '02', title: '信息2' },
+      { id: '03', title: '信息3' },
+    ]
+  }
+  render() {
+    return (
+      <div>
+        <ul>
+          {
+            this.state.messages.map((message) => {
+              return (
+                <li key={message.id}>
+                  <Link to={`/home/message/detail/${message.id}/${message.title}`}>{message.title}</Link>
+                </li>
+              )
+            })
+          }
+        </ul>
+        {/* /home/message/detail/:id/:title  这样可以让Detail路由组件接收到传递的params id title 两个属性 */}
+        <Route path="/home/message/detail/:id/:title" component={Detail} />
+      </div>
+    )
+  }
+}
